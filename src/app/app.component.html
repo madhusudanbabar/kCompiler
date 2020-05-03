@@ -1,14 +1,26 @@
 <mat-toolbar color="primary">
   <h1>kCompiler</h1>
-  <button style="margin-left: auto;" (click)="code.value=''" mat-flat-button color="warn">reset</button>
+  <h2 style="margin-left: auto;" *ngIf="compiling">compiling...</h2>
+  <button
+    style="margin-left: auto;"
+    (click)="f.reset(); code.reset()"
+    mat-flat-button
+    color="warn"
+  >
+    reset
+  </button>
 </mat-toolbar>
 
 <mat-card>
-<form class="example-form" action="/upload" method="POST">
+  <form action="/upload" method="POST" #f="ngForm">
     <mat-form-field>
       <mat-label>select language</mat-label>
-      <mat-select name="optgroup" [(ngModel)]="selectedLang" (selectionChange)=selectSnippet() >
-        <mat-option *ngFor="let op of languages" [value]="op.name" >
+      <mat-select
+        name="optgroup"
+        [(ngModel)]="selectedLang"
+        (selectionChange)="selectSnippet()"
+      >
+        <mat-option *ngFor="let op of languages" [value]="op.name">
           {{ op.name }}
         </mat-option>
       </mat-select>
@@ -16,22 +28,55 @@
     <button
       mat-raised-button
       color="accent"
-      style="margin-left: auto !important; display: inline-block;"
+      style="margin-left: auto;"
       (click)="fileUpload.click()"
     >
       <mat-icon aria-hidden="false" aria-label="Example home icon"
         >insert_drive_file</mat-icon
       >
-      upload
+      {{ file.value || "choose file" }}
     </button>
-    <input hidden #fileUpload type="file" name="file" id="" />
+    <input
+      enctype="multipart/form-data"
+      ngModel
+      #file="ngModel"
+      hidden
+      #fileUpload
+      type="file"
+      name="file"
+      id=""
+    />
 
     <mat-form-field appearance="outline" style="width: 100%;">
       <mat-label>{{ lang }}</mat-label>
-      <textarea matInput rows="25" name="code" #code placeholder="{{ snippet }}">{{ snippet }}</textarea>
+      <textarea
+        ngModel
+        #code="ngModel"
+        matInput
+        rows="25"
+        name="code"
+        #code
+        placeholder="{{ snippet }}"
+        >{{ snippet }}</textarea
+      >
     </mat-form-field>
-    <button style="margin-left: auto; display: block;" mat-button color="primary" type="submit">compile</button>
+    <button
+      style="margin-left: auto; display: block;"
+      [disabled]="compiling"
+      mat-stroked-button
+      color="primary"
+      (click)="submit(f)"
+    >
+      compile
+    </button>
   </form>
+</mat-card>
+
+<mat-card *ngIf="compiling">
+  <mat-card-header>
+    compilng...
+    <mat-spinner *ngIf="compiling"></mat-spinner>
+  </mat-card-header>
 </mat-card>
 
 <router-outlet></router-outlet>
