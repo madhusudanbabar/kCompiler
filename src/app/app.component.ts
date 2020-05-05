@@ -55,19 +55,28 @@ export class AppComponent {
       }
     })
   } 
+  file;
+  getFile(event){
+    this.file = event.target.files[0]
+  }
+
   
-
-
+  debug:boolean = false;
   submit(f:NgForm){
     this.compiling = true;
-    console.log(f.form);
-    this.ser.post("/upload",f.value).toPromise().then(res=>{
-      console.log(res);
+    // console.log(f.form);
+    var dto = new FormData()
+    dto.append("file",this.file)
+    console.log(this.file);
+    dto.append("name", f.value.code)
+    this.ser.post("/upload",dto).toPromise().then(res=>{
+      console.log(JSON.stringify(res));
       this.compiling = false;
     },
     err=>{
       console.log(err);
       alert(err.statusText)
+      this.compiling = false;
     });
   }  
 }
