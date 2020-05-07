@@ -72,20 +72,20 @@
     >
       compile
     </button>
-    <input type="submit" value="submit" />
   </form>
 </mat-card>
 
 <mat-card *ngIf="debug">
-  <form action="http://localhost:3000/upload" method="post">
+  <form action="/upload" method="post">
     <input type="file" name="file" id="">
-  <input type="submit" value="submit"></form>
+  <input type="submit" value="submit">
+</form>
 </mat-card>
 
 <mat-card *ngIf="compiling">
   <mat-card-header>
-    compilng...
-    <mat-spinner *ngIf="compiling"></mat-spinner>
+    compilng... &nbsp;
+    <mat-spinner diameter="25"  *ngIf="compiling"></mat-spinner>
   </mat-card-header>
 </mat-card>
 
