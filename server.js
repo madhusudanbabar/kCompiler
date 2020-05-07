@@ -13,6 +13,8 @@ const storage = multer.diskStorage({
     }
 })
 
+app.use(express.static(path.join(__dirname, "dist", "compiler")))
+
 app.use(express.json())
 
 var upload = multer({
