@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { langOptions } from "./langInt";
 import { NgForm } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,9 +15,10 @@ export class AppComponent {
   snippet: string;
   code: string;
   title = 'compiler';
-  compiling:boolean;
+  compiling: boolean;
+  fileContents: string;
 
-  constructor(private ser:HttpClient){}
+  constructor(private ser: HttpClient) { }
 
   languages: langOptions[] = [
     {
@@ -40,9 +42,10 @@ export class AppComponent {
   }`
     },
 
-    { 
-      name: "python", 
-      snippet: "print('hello world')" }
+    {
+      name: "python",
+      snippet: "print('hello world')"
+    }
   ]
 
   selectSnippet() {
@@ -54,29 +57,36 @@ export class AppComponent {
         return;
       }
     })
-  } 
-  file;
-  getFile(event){
-    this.file = event.target.files[0]
   }
 
-  
-  debug:boolean = false;
-  submit(f:NgForm){
+
+  file: File;
+  getFile(event) {
+    this.file = event.target.files[0];
+    this.file.text().then((value) => {
+      console.log(value);
+      document.querySelector("textarea").value = value;
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+
+  debug: boolean = false;
+  submit(f: NgForm) {
     this.compiling = true;
-    // console.log(f.form);
     var dto = new FormData()
-    dto.append("file",this.file)
+    dto.append("file", this.file)
     console.log(this.file);
-    dto.append("name", f.value.code)
-    this.ser.post("/upload",dto).toPromise().then(res=>{
+    dto.append("code", f.value.code)
+    this.ser.post("/upload", dto).toPromise().then(res => {
       console.log(JSON.stringify(res));
       this.compiling = false;
     },
-    err=>{
-      console.log(err);
-      alert(err.statusText)
-      this.compiling = false;
-    });
-  }  
+      err => {
+        console.log(err);
+        alert(err.statusText)
+        this.compiling = false;
+      });
+  }
 }
