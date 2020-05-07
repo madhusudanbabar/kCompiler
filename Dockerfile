@@ -2,5 +2,5 @@ FROM node:latest
 WORKDIR /kCompiler
 COPY . /kCompiler
 RUN npm install
-CMD node index.js
+CMD node server.js
 EXPOSE 3000
