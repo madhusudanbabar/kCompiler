@@ -2,6 +2,10 @@ const express = require("express")
 const app = express()
 const path = require("path")
 const multer = require("multer")
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json())
+
 
 const storage = multer.diskStorage({
     destination: "./uploads",
@@ -22,13 +26,16 @@ var upload = multer({
 }).single("file")
 
 app.post("/upload", (req, res) => {
-    upload(req, res, (err) => {
+    // console.log(req);
+
+    upload(req, res, (err) => {   
+        console.log(req.body);
         if (err) {
             console.log(err);
             res.json(err)
         }
         else {
-            res.redirect("")
+            res.json("file recieved");
         }
     })
 })
