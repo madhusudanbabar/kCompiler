@@ -80,8 +80,8 @@ export class AppComponent {
     this.op = null;
     this.compiling = true;
     var dto = new FormData()
-    dto.append("file", this.file)
-    console.log(this.file);
+    // dto.append("file", this.file)
+    // console.log(this.file);
     dto.append("lang", this.selectedLang)
     console.log(this.selectedLang);
     dto.append("code", f.value.code)
