@@ -36,7 +36,7 @@ export class AppComponent {
 
     {
       name: "c++", snippet: `
-    Include<iostream>
+    #include<iostream>
     using namespace std;
     int main(){
       cout << "hello world";
