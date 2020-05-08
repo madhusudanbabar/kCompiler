@@ -16,6 +16,8 @@ export class AppComponent {
   code: string;
   title = 'compiler';
   compiling: boolean;
+  showOp: boolean;
+  op: any;
   fileContents: string;
 
   constructor(private ser: HttpClient) { }
@@ -74,14 +76,20 @@ export class AppComponent {
 
   debug: boolean = false;
   submit(f: NgForm) {
+    this.showOp = false;
+    this.op = null;
     this.compiling = true;
     var dto = new FormData()
     dto.append("file", this.file)
     console.log(this.file);
+    dto.append("lang", this.selectedLang)
+    console.log(this.selectedLang);
     dto.append("code", f.value.code)
     this.ser.post("/upload", dto).toPromise().then(res => {
-      console.log(JSON.stringify(res));
+      console.log(res);
+      this.op = res;
       this.compiling = false;
+      this.showOp = true;
     },
       err => {
         console.log(err);
