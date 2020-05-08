@@ -1,7 +1,8 @@
 <mat-toolbar color="primary">
   <h1>kCompiler</h1>
   <h2 style="margin-left: auto;" *ngIf="compiling">compiling...</h2>
-  <button *ngIf="!debug"
+  <button
+    *ngIf="!debug"
     style="margin-left: auto;"
     mat-flat-button
     color="warn"
@@ -20,6 +21,7 @@
     <mat-form-field>
       <mat-label>select language</mat-label>
       <mat-select
+        required
         name="optgroup"
         [(ngModel)]="selectedLang"
         (selectionChange)="selectSnippet()"
@@ -40,7 +42,8 @@
       >
       {{ file.value || "choose file" }}
     </button>
-    <input (change)="getFile($event)"
+    <input
+      (change)="getFile($event)"
       ngModel
       #file="ngModel"
       hidden
@@ -56,10 +59,12 @@
         ngModel
         #code="ngModel"
         matInput
+        required
         rows="25"
         name="code"
         #code
-        placeholder="{{ snippet }}">
+        placeholder="{{ snippet }}"
+      >
           {{ fileContents }}
         </textarea
       >
@@ -69,6 +74,7 @@
       [disabled]="compiling"
       mat-stroked-button
       color="primary"
+      [disabled]="!f.valid"
       (click)="submit(f)"
     >
       compile
@@ -76,18 +82,23 @@
   </form>
 </mat-card>
 
-<mat-card *ngIf="debug">
-  <form action="/upload" method="post">
-    <input type="file" name="file" id="">
-  <input type="submit" value="submit">
-</form>
-</mat-card>
-
 <mat-card *ngIf="compiling">
   <mat-card-header>
     compilng... &nbsp;
-    <mat-spinner diameter="25"  *ngIf="compiling"></mat-spinner>
+    <mat-spinner diameter="25" *ngIf="compiling"></mat-spinner>
   </mat-card-header>
+</mat-card>
+
+<mat-card *ngIf="showOp">
+  <mat-card-header>
+    Output:
+  </mat-card-header>
+  <mat-card-content>
+    {{ op.out }}
+  </mat-card-content>
+  <mat-card-content>
+    {{ op.err }}
+  </mat-card-content>
 </mat-card>
 
 <router-outlet></router-outlet>
