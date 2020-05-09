@@ -8,7 +8,7 @@ User can write code directly into the editor or upload the program file,
 This file will be sent to the server over http POST method, where the file will be executed on a docker container and output will be processed and the response will be sent back to the user
   This project is built using Angular framework for user interface / frontend & some material touch is given and express framework ( nodejs) is used for backend processing the data.
 
-you can get the image from docker hub `docker push krypto9/kcompiler:v2`
+you can get the image from docker hub `docker pull krypto9/kcompiler:v2`
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.3.
 
