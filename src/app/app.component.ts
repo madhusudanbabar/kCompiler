@@ -70,6 +70,10 @@ export class AppComponent {
     })
   }
 
+  reset(){
+    var form = document.querySelectorAll("form")[0].reset()
+  }
+
 
   debug: boolean = false;
   submit(f: NgForm) {

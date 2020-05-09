@@ -3,7 +3,7 @@
   <h1>kCompiler</h1>
   <h2 style="margin-left: auto;" *ngIf="compiling">compiling...</h2>
   <button style="margin-left: auto;"
-    mat-flat-button color="warn" >
+    mat-flat-button color="warn" (click)="reset()" >
     reset
   </button>
 </mat-toolbar>
@@ -13,7 +13,7 @@
 <mat-card *ngIf="!debug">
   <form enctype="multipart/form-data"
     action="/upload" method="POST"
-    #f="ngForm" >
+    #f="ngForm" id="form">
     <mat-form-field>
       <mat-label>select language</mat-label>
       <mat-select required name="optgroup"
@@ -43,7 +43,7 @@
     <mat-form-field appearance="outline" style="width: 100%;">
       <mat-label>{{ lang }}</mat-label>
       <textarea ngModel #code="ngModel" matInput
-        required rows="25" name="code"
+        required rows="20" name="code"
         #code placeholder="{{ snippet }}">
           {{ fileContents }}
         </textarea>
