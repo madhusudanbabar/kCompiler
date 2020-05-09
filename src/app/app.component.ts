@@ -28,10 +28,8 @@ export class AppComponent {
       snippet: `
       #include<stdio.h>
       int main(){
-          print('hello world');
-        }
-      }
-      `
+          printf("hello world");
+      }`
     },
 
     {
@@ -40,7 +38,6 @@ export class AppComponent {
     using namespace std;
     int main(){
       cout << "hello world";
-    }
   }`
     },
 
