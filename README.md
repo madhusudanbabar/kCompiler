@@ -1,13 +1,14 @@
 # Compiler
 
 
-Last month, i had a training on docker by Mr. Vimal daga sir, under the linuxWorld India. this was a full fledged training for beginners to the professionals, under this training program, we learnt the docker from installation to creating our own repository of images on docker hub. 
-As a part of this training, we were supposed to complete a project using the concepts of docker, and here i have created an online compiler based on the docker.
+  Last month, i had a training on docker by Mr. Vimal daga sir, under the linuxWorld India. this was a full fledged training for beginners to the professionals, under this training program, we learnt the docker from installation to creating our own repository of images on docker hub. 
+  As a part of this training, we were supposed to complete a project using the concepts of docker, and here i have created an online compiler based on the docker.
 This project is an example of an online compiler for technically any programming language but in this version i have implemented support for only three languages C, C++, and python,
 User can write code directly into the editor or upload the program file,
 This file will be sent to the server over http POST method, where the file will be executed on a docker container and output will be processed and the response will be sent back to the user
-This project is built using Angular framework for user interface / frontend and express framework ( nodejs) is used for backend processing the data.
+  This project is built using Angular framework for user interface / frontend & some material touch is given and express framework ( nodejs) is used for backend processing the data.
 
+you can get the image from docker hub `docker push krypto9/kcompiler:v2`
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.3.
 
